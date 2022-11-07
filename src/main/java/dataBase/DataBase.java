@@ -10,6 +10,7 @@ import model.User;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public interface DataBase<T> {
     List<User> LIST_OF_USERS = new ArrayList<>();
     List<Product> LIST_OF_PRODUCTS = new ArrayList<>();
@@ -17,10 +18,10 @@ public interface DataBase<T> {
 
     default void addObjectToDataBase(T o) {
         if(o instanceof User){
-            File file = new File("F:\\Java lessons\\OLX_Telegram_Bot\\src\\main\\resources\\users\\usersJson.json");
+            File file = new File("src\\main\\resources\\usersJson.json");
             fileWriter(file,o);
         }else if(o instanceof Product){
-            File file = new File("F:\\Java lessons\\OLX_Telegram_Bot\\src\\main\\resources\\products\\productsJson.json");
+            File file = new File("src\\main\\resources\\productsJson.json");
             fileWriter(file,o);
         }else{
             try {
@@ -40,6 +41,7 @@ public interface DataBase<T> {
                 List<T> users = gson.fromJson(new FileReader(file),new TypeToken<List<T>>(){}.getType());
                 users.add(o);
                 fileWriter.write(gson.toJson(users));
+                fileWriter.close();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

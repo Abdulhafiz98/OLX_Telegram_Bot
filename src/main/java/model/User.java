@@ -18,6 +18,7 @@ public class User extends Base {
     private String username;
 
     public User(String firstName, String lastName, String phoneNumber, String username) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
