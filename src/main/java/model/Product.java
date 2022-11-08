@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString(callSuper = true)
 public class Product extends Base {
+
     private String name;
     private int categoryId;
     private double price;
