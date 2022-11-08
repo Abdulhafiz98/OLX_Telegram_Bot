@@ -6,46 +6,69 @@ import com.google.gson.reflect.TypeToken;
 import exceptions.DataSavingFailedException;
 import model.Product;
 import model.User;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface DataBase<T> {
-    List<User> LIST_OF_USERS = new ArrayList<>();
-    List<Product> LIST_OF_PRODUCTS = new ArrayList<>();
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+public abstract class DataBase {
+    public static List<User> LIST_OF_USERS = new ArrayList<>();
+    public static List<Product> LIST_OF_PRODUCTS = new ArrayList<>();
+    private static Gson gson =new GsonBuilder().setPrettyPrinting().create();
 
-    default void addObjectToDataBase(T o) {
-        if(o instanceof User){
-            File file = new File("src\\main\\resources\\usersJson.json");
-            fileWriter(file,o);
-        }else if(o instanceof Product){
-            File file = new File("src\\main\\resources\\productsJson.json");
-            fileWriter(file,o);
-        }else{
-            try {
-                throw new DataSavingFailedException();
-            } catch (DataSavingFailedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public List<Product> getAllProductsList() throws FileNotFoundException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.fromJson(new FileReader("src\\main\\java\\resources\\productsJson.json"),
+                new TypeToken<List<Product>>(){}.getType());
     }
 
-    private void fileWriter(File file,T o){
-        try(FileWriter fileWriter = new FileWriter(file)) {
+    public List<User> getAllUsersList() throws FileNotFoundException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.fromJson(new FileReader("src\\main\\java\\resources\\usersJson.json"),
+                new TypeToken<List<User>>(){}.getType());
+    }
+
+    public static void saveUserToDataBase(User user) {
+        File file = new File("src\\main\\java\\resources\\usersJson.json");
+        try {
             if(file.createNewFile()){
-                String str = "["+gson.toJson(o)+"]";
-                fileWriter.write(str);
+                String str = "["+gson.toJson(user)+"]";
+                fileWriterMethod(file,str);
+
             }else{
-                List<T> users = gson.fromJson(new FileReader(file),new TypeToken<List<T>>(){}.getType());
-                users.add(o);
-                fileWriter.write(gson.toJson(users));
-                fileWriter.close();
+                List<User> users = gson.fromJson(new FileReader(file),new TypeToken<List<User>>(){}.getType());
+                users.add(user);
+                fileWriterMethod(file,gson.toJson(users));
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static void saveProductToDataBase(Product product) {
+        File file = new File("src\\main\\java\\resources\\productsJson.json");
+        try {
+            if(file.createNewFile()){
+                String str = "["+gson.toJson(product)+"]";
+                fileWriterMethod(file,str);
+
+            }else{
+                List<Product> products = gson.fromJson(new FileReader(file),new TypeToken<List<Product>>(){}.getType());
+                products.add(product);
+                fileWriterMethod(file,gson.toJson(products));
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void fileWriterMethod(File file, String text) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            bufferedWriter.write(text);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

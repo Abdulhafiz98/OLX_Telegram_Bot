@@ -3,7 +3,14 @@ package model;
 import lombok.*;
 import model.base.Base;
 
+import javax.swing.text.DateFormatter;
+import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
+import java.util.Formatter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +24,25 @@ public class Product extends Base {
     private int userId;
     private String description;
     private boolean saleState;
-    private LocalDateTime localDateTime;
+    private String phoneNumber;
+    private String date;
+    @Override
+    public String toString() {
+        String truOrFalse;
+        if (saleState){
+            truOrFalse = "✅";
+        }
+        else
+            truOrFalse = "❌";
 
+        return "\t\t Product ID :   " + getId() + "\n"+
+                "  Nomi\uD83D\uDCC4  :  " + name + '\n' +
+                "  Tavsif :  " + description +"\n"+
+                "  Narxi\uD83D\uDCB5 :   " + price +" so`m"+"\n"+
+                "  Telefon raqami☎ :  "+ phoneNumber +"\n"+
+                "  User Id :  " + userId +"\n"+
+                "  Qo`yilgan sanasi : " + date +"\n"+
+                "  Categoriya Id  :  " + categoryId + '\n' +
+                "  Sotuvda mavjud :  " + truOrFalse ;
+    }
 }

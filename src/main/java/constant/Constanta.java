@@ -4,6 +4,12 @@ package constant;
 public interface Constanta {
     String BOT_TOKEN = "5628914728:AAFHuG3Sjghxob-d-5px0AmGivPtCEV80ao";
     String BOT_USERNAME = "https://t.me/springDemotelegramBot";
+    String START = "/start";
+    String PROFILE = "PROFILE";
+    String PRODUCTS = "PRODUCTS";
+    String CATEGORIES = "CATEGORIES";
+    String FAVORITES = "FAVORITES";
+
 
     String BOLALAR_DUNYOSI = "BOLALAR DUNYOSI\uD83D\uDC76";
     String KOCHMAS_MULK = "KOCHMAS MULK\uD83C\uDFE0";
@@ -11,6 +17,7 @@ public interface Constanta {
     String ISH = "ISH\uD83D\uDCBC";
     String UY_JIHOZLARI = "UY JIHOZLARI\uD83E\uDE91";
     String ELEKTRONIKA = "ELEKTRONIKA\uD83D\uDCF1";
+    String BACK = "BACK";
 
     String BOLALAR_KIYIMI = "BOLALAR KIYIMI";
     String BOLALAR_MEBELI = "BOLALAR MEBELI";

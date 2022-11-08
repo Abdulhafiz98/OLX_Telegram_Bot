@@ -1,25 +1,17 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import model.Category;
+import com.fasterxml.jackson.core.PrettyPrinter;
+import dataBase.DataBase;
+import model.Product;
 
-import java.io.File;
-import java.io.IOException;
+public class Main extends DataBase {
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Category category = new Category();
-        category.setName("wqdqdfgdf");
-        category.setParentId(2);
-        objectMapper.writerWithDefaultPrettyPrinter().
-                writeValue(new File("src\\main\\resources\\categories.json"),category);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String s = "["+gson.toJson(category)+"]";
-
-        objectMapper.writerWithDefaultPrettyPrinter().
-                writeValue(new File("src\\main\\resources\\categories.json"),s);
-
-
+    public static void main(String[] args) {
+        Product product = new Product();
+        product.setSaleState(false);
+        product.setName(" Samsung s20");
+        product.setPrice(9_100_500);
+        product.setDescription("Holati yangi");
+        product.setPhoneNumber("+998997474347");
+        saveProductToDataBase(product);
     }
+
 }
