@@ -4,10 +4,13 @@ import dataBase.DataBase;
 import model.User;
 import service.baseSerivice.BaseService;
 
-public class UserService implements BaseService<User>,DataBase<User> {
+import java.io.IOException;
+
+public class UserService implements BaseService<User>{
     @Override
-    public void add(User o) {
-        // logic here
+    public void add(User user) {
+        DataBase.LIST_OF_USERS.add(user);
+        DataBase.saveUserToDataBase(user);
     }
 
 }

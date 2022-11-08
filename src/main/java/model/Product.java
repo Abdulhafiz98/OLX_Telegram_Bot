@@ -3,7 +3,7 @@ package model;
 import lombok.*;
 import model.base.Base;
 
-import java.time.LocalDateTime;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +17,7 @@ public class Product extends Base {
     private int userId;
     private String description;
     private boolean saleState;
-    private LocalDateTime localDateTime;
+    private String dateAndTime;
+
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import model.base.Base;
 
