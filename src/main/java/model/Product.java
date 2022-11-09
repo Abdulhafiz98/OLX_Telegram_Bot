@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.Formatter;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString(callSuper = true)
@@ -35,7 +34,7 @@ public class Product extends Base {
         else
             truOrFalse = "❌";
 
-        return "\t\t Product ID :   " + getId() + "\n"+
+        return "\t\t Product ID :   " + getUserId() + "\n"+
                 "  Nomi\uD83D\uDCC4  :  " + name + '\n' +
                 "  Tavsif :  " + description +"\n"+
                 "  Narxi\uD83D\uDCB5 :   " + price +" so`m"+"\n"+

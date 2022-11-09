@@ -1,14 +1,18 @@
 package constant;
 
 
+import java.util.stream.Stream;
+
 public interface Constanta {
     String BOT_TOKEN = "5628914728:AAFHuG3Sjghxob-d-5px0AmGivPtCEV80ao";
     String BOT_USERNAME = "https://t.me/springDemotelegramBot";
     String START = "/start";
-    String PROFILE = "PROFILE";
-    String PRODUCTS = "PRODUCTS";
-    String CATEGORIES = "CATEGORIES";
-    String FAVORITES = "FAVORITES";
+    String PROFILE = "PROFILE⚙";
+    String PRODUCTS = "PRODUCTS\uD83D\uDECD";
+    String CATEGORIES = "CATEGORIES\uD83D\uDDC2";
+    String FAVORITES = "FAVORITES❤";
+    String ADMIN = "/admin";
+    String ADMIN_ID = "1181112349";
 
 
     String BOLALAR_DUNYOSI = "BOLALAR DUNYOSI\uD83D\uDC76";
@@ -18,10 +22,16 @@ public interface Constanta {
     String UY_JIHOZLARI = "UY JIHOZLARI\uD83E\uDE91";
     String ELEKTRONIKA = "ELEKTRONIKA\uD83D\uDCF1";
     String BACK = "BACK";
+    String ALL_CATEGORIES = "ALL CATEGORIES";
+    String ALL_USERS = "ALL USERS";
+    String ADD_CATEGORY = "ADD CATEGORY";
+    String STATISTICS = "STATISTICS";
+
 
     String BOLALAR_KIYIMI = "BOLALAR KIYIMI";
     String BOLALAR_MEBELI = "BOLALAR MEBELI";
-    String BOSHQA_BOLALAR_MAHSULOTLARI = "BOSHQA BOLALAR MAHSULOTLARI";
+    String BOLALAR_MAHSULOTLARI = "BOLALAR MAHSULOTLARI";
+    String BOLALAR_OZIQ_OVQATI = "BOLALAR OZIQ OVQATI";
 
     String KVARTIRALAR = "KVARTIRALAR";
     String UY_JOY = "UY JOY";

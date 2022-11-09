@@ -1,17 +1,15 @@
-import com.fasterxml.jackson.core.PrettyPrinter;
+import constant.Constanta;
 import dataBase.DataBase;
-import model.Product;
+import model.Category;
 
-public class Main extends DataBase {
 
-    public static void main(String[] args) {
-        Product product = new Product();
-        product.setSaleState(false);
-        product.setName(" Samsung s20");
-        product.setPrice(9_100_500);
-        product.setDescription("Holati yangi");
-        product.setPhoneNumber("+998997474347");
-        saveProductToDataBase(product);
+import java.io.IOException;
+
+public class Main extends DataBase implements Constanta {
+
+    public static void main(String[] args) throws IOException {
+//        Category category = new Category(1,"Myhtygjtyj");
+//        saveCategoryToDataBase(category);
     }
 
 }

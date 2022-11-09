@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import exceptions.DataSavingFailedException;
+import model.Category;
 import model.Product;
 import model.User;
 import java.io.*;
@@ -19,6 +20,11 @@ public abstract class DataBase {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.fromJson(new FileReader("src\\main\\java\\resources\\productsJson.json"),
                 new TypeToken<List<Product>>(){}.getType());
+    }
+    public List<Category> getAllCategoriesList() throws FileNotFoundException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.fromJson(new FileReader("src\\main\\java\\resources\\categoriesFile.json"),
+                new TypeToken<List<Category>>(){}.getType());
     }
 
     public List<User> getAllUsersList() throws FileNotFoundException {
@@ -37,6 +43,23 @@ public abstract class DataBase {
             }else{
                 List<User> users = gson.fromJson(new FileReader(file),new TypeToken<List<User>>(){}.getType());
                 users.add(user);
+                fileWriterMethod(file,gson.toJson(users));
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void saveCategoryToDataBase(Category category) {
+        File file = new File("src\\main\\java\\resources\\categoriesFile.json");
+        try {
+            if(file.createNewFile()){
+                String str = "["+gson.toJson(category)+"]";
+                fileWriterMethod(file,str);
+
+            }else{
+                List<Category> users = gson.fromJson(new FileReader(file),new TypeToken<List<Category>>(){}.getType());
+                users.add(category);
                 fileWriterMethod(file,gson.toJson(users));
             }
 
