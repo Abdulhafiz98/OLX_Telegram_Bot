@@ -1,0 +1,232 @@
+[
+  {
+    "parentId": 0,
+    "name": "BOLALAR DUNYOSI👶",
+    "id": 1
+  },
+  {
+    "parentId": 0,
+    "name": "KOCHMAS MULK🏠",
+    "id": 2
+  },
+  {
+    "parentId": 0,
+    "name": "TRANSPORT🚙",
+    "id": 3
+  },
+  {
+    "parentId": 0,
+    "name": "ISH💼",
+    "id": 4
+  },
+  {
+    "parentId": 0,
+    "name": "UY JIHOZLARI🪑",
+    "id": 5
+  },
+  {
+    "parentId": 0,
+    "name": "ELEKTRONIKA📱",
+    "id": 6
+  },
+  {
+    "parentId": 1,
+    "name": "BOLALAR KIYIMI",
+    "id": 7
+  },
+  {
+    "parentId": 1,
+    "name": "BOLALAR MEBELI",
+    "id": 8
+  },
+  {
+    "parentId": 1,
+    "name": "BOLALAR MAHSULOTLARI",
+    "id": 9
+  },
+  {
+    "parentId": 2,
+    "name": "KVARTIRALAR",
+    "id": 10
+  },
+  {
+    "parentId": 2,
+    "name": "UY JOY",
+    "id": 11
+  },
+  {
+    "parentId": 2,
+    "name": "YER",
+    "id": 12
+  },
+  {
+    "parentId": 2,
+    "name": "TIJORAT BINOLARI",
+    "id": 13
+  },
+  {
+    "parentId": 3,
+    "name": "YENGIL AVTOMOBILLAR",
+    "id": 14
+  },
+  {
+    "parentId": 3,
+    "name": "YUK AVTOMOBILLARI",
+    "id": 15
+  },
+  {
+    "parentId": 3,
+    "name": "MOTOTSIKL QISMLARI VA AKSESUARLARI",
+    "id": 16
+  },
+  {
+    "parentId": 3,
+    "name": "AVTO EHTIYOT QISMLARI VA AKSESUARLARI",
+    "id": 17
+  },
+  {
+    "parentId": 3,
+    "name": "BOSHQA TRANSPORT",
+    "id": 18
+  },
+  {
+    "parentId": 4,
+    "name": "CHAKANA SAVDO / SOTIQ",
+    "id": 19
+  },
+  {
+    "parentId": 4,
+    "name": "HUQUQ BUGALTERIYA",
+    "id": 20
+  },
+  {
+    "parentId": 4,
+    "name": "TURIZM",
+    "id": 21
+  },
+  {
+    "parentId": 4,
+    "name": "IT / Telekom",
+    "id": 22
+  },
+  {
+    "parentId": 4,
+    "name": "TRANSPORT_LOGISTIKA",
+    "id": 23
+  },
+  {
+    "parentId": 4,
+    "name": "TA`LIM",
+    "id": 24
+  },
+  {
+    "parentId": 4,
+    "name": "XAVFSIZLIK",
+    "id": 25
+  },
+  {
+    "parentId": 4,
+    "name": "QURILISH",
+    "id": 26
+  },
+  {
+    "parentId": 4,
+    "name": "MARKETING",
+    "id": 27
+  },
+  {
+    "parentId": 5,
+    "name": "MEBEL",
+    "id": 28
+  },
+  {
+    "parentId": 5,
+    "name": "INSTRUMENTLAR",
+    "id": 29
+  },
+  {
+    "parentId": 5,
+    "name": "KANTSELARIYA TOVARLARI",
+    "id": 30
+  },
+  {
+    "parentId": 5,
+    "name": "INTERYER BUYUMLAR",
+    "id": 31
+  },
+  {
+    "parentId": 5,
+    "name": "IDISH OSHXONA ANJOMLARI",
+    "id": 32
+  },
+  {
+    "parentId": 5,
+    "name": "OZIQ OVQAT ICHIMLIKLAR",
+    "id": 33
+  },
+  {
+    "parentId": 5,
+    "name": "QURILISH VA TAMIRLASH UCHUN TOVARLAR",
+    "id": 34
+  },
+  {
+    "parentId": 6,
+    "name": "TELEFONLAR",
+    "id": 35
+  },
+  {
+    "parentId": 6,
+    "name": "AUDIO",
+    "id": 36
+  },
+  {
+    "parentId": 6,
+    "name": "IQLIM USKUNALARI",
+    "id": 37
+  },
+  {
+    "parentId": 6,
+    "name": "KOMPUTERLAR",
+    "id": 38
+  },
+  {
+    "parentId": 6,
+    "name": "O`YIN KONSOLLARI",
+    "id": 39
+  },
+  {
+    "parentId": 6,
+    "name": "FOTO/VIDEO",
+    "id": 40
+  },
+  {
+    "parentId": 6,
+    "name": "MAISHIY TEXNIKA",
+    "id": 41
+  },
+  {
+    "parentId": 6,
+    "name": "AKSESUARLAR",
+    "id": 42
+  },
+  {
+    "parentId": 6,
+    "name": "TV",
+    "id": 43
+  },
+  {
+    "parentId": 1,
+    "name": " BOLALAR OZIQ OVQATI ",
+    "id": 46
+  },
+  {
+    "parentId": 1,
+    "name": " O`YINCHOQLAR ",
+    "id": 47
+  },
+  {
+    "parentId": 1,
+    "name": "MAKTAB TOVARLARI ",
+    "id": 48
+  }
+]

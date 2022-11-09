@@ -1,0 +1,48 @@
+[
+  {
+    "categoryId": 0,
+    "price": 0.0,
+    "userId": 0,
+    "description": "thrthyhr",
+    "saleState": false,
+    "id": 19
+  },
+  {
+    "categoryId": 0,
+    "price": 0.0,
+    "userId": 0,
+    "description": "thrthyhr",
+    "saleState": false,
+    "id": 20
+  },
+  {
+    "categoryId": 0,
+    "price": 0.0,
+    "userId": 0,
+    "description": "thrthyhr",
+    "saleState": false,
+    "id": 22
+  },
+  {
+    "name": "reer",
+    "categoryId": 5,
+    "price": 2.3,
+    "userId": 2,
+    "description": "efer",
+    "saleState": true,
+    "phoneNumber": "ewsf",
+    "date": "trghrt",
+    "id": 25
+  },
+  {
+    "name": "reer",
+    "categoryId": 5,
+    "price": 2.3,
+    "userId": 2,
+    "description": "efer",
+    "saleState": true,
+    "phoneNumber": "ewsf",
+    "date": "trghrt",
+    "id": 26
+  }
+]
