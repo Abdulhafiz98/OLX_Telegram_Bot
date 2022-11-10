@@ -14,10 +14,15 @@ public class BaseMethod extends DataBase{
   static Gson gson = new GsonBuilder().setPrettyPrinting().create();
    static File file = new File("src\\main\\java\\resources\\generationId.json");
     public static void saveId(int id) throws IOException {
-        Id id1 = gson.fromJson(new FileReader(file),new TypeToken<Id>(){}.getType());
+        FileReader fileReader = new FileReader(file);
+        System.out.println("save id : "+id);
+        Id id1 = gson.fromJson(fileReader,new TypeToken<Id>(){}.getType());
         id1.setId(id);
+        System.out.println("set qilingandan keyingi id : "+id1.getId());
         String json = gson.toJson(id1);
+        fileReader.close();
         fileWriterMethod(file,json);
+        System.out.println(json);
 
     }
     public static int getIdLastId() throws FileNotFoundException {

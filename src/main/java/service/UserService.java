@@ -1,8 +1,12 @@
 package service;
 
 import dataBase.DataBase;
+import model.Product;
 import model.User;
 import org.telegram.telegrambots.meta.api.objects.Message;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService extends DataBase {
 
@@ -12,7 +16,8 @@ public class UserService extends DataBase {
          String lastName = message.getContact().getLastName();
          String phoneNumber = message.getContact().getPhoneNumber();
          String username = message.getFrom().getUserName();
-         User user = new User(null,firstName,lastName,phoneNumber,username,chatId);
+         List<Product>list = new ArrayList<>();
+         User user = new User(list,firstName,lastName,phoneNumber,username,chatId);
 
          saveUserToDataBase(user);
 

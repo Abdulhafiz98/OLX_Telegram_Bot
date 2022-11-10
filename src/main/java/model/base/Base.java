@@ -15,15 +15,17 @@ import java.io.*;
 @ToString(callSuper = true)
 public abstract class Base extends BaseMethod {
     private int id = 0;
-    private String callBackData;  // User = U, Category = C, Product = P
-   static int idGenerator = 0;
+    //private String callBackData;  // User = U, Category = C, Product = P
+    static int idGenerator = getIdFromFile();
     public Base(){
-        this.id = getIds();
+        this.id = idGenerator;
+
     }
 
-    private int getIds(){
+    private static int getIdFromFile(){
         try {
            return idGenerator = getIdLastId();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

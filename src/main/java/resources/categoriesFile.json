@@ -76,12 +76,12 @@
   },
   {
     "parentId": 3,
-    "name": "MOTOTSIKL QISMLARI VA AKSESUARLARI",
+    "name": "MOTOTSIKL QISMLARI",
     "id": 16
   },
   {
     "parentId": 3,
-    "name": "AVTO EHTIYOT QISMLARI VA AKSESUARLARI",
+    "name": "AVTO EHTIYOT QISMLARI",
     "id": 17
   },
   {
@@ -111,7 +111,7 @@
   },
   {
     "parentId": 4,
-    "name": "TRANSPORT_LOGISTIKA",
+    "name": "TRANSPORT LOGISTIKA",
     "id": 23
   },
   {
@@ -166,17 +166,17 @@
   },
   {
     "parentId": 5,
-    "name": "QURILISH VA TAMIRLASH UCHUN TOVARLAR",
+    "name": "QURILISH TOVARLARI",
     "id": 34
   },
   {
     "parentId": 6,
-    "name": "TELEFONLAR",
+    "name": "TELEFONLAR📱",
     "id": 35
   },
   {
     "parentId": 6,
-    "name": "AUDIO",
+    "name": "AUDIO🔉",
     "id": 36
   },
   {
@@ -186,17 +186,17 @@
   },
   {
     "parentId": 6,
-    "name": "KOMPUTERLAR",
+    "name": "KOMPUTERLAR💻",
     "id": 38
   },
   {
     "parentId": 6,
-    "name": "O`YIN KONSOLLARI",
+    "name": "O`YIN KONSOLLARI🕹",
     "id": 39
   },
   {
     "parentId": 6,
-    "name": "FOTO/VIDEO",
+    "name": "FOTO/VIDEO📸🎥",
     "id": 40
   },
   {
@@ -225,7 +225,7 @@
     "id": 47
   },
   {
-    "parentId": 1,
+    "parentId": 0,
     "name": "MAKTAB TOVARLARI ",
     "id": 48
   }

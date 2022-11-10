@@ -1,26 +1,20 @@
 package model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import model.base.Base;
-
-import javax.swing.text.DateFormatter;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.Formatter;
 
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(callSuper = true)
+@NoArgsConstructor
 public class Product extends Base {
     private String name;
     private int categoryId;
     private double price;
-    private int userId;
+    private String userId;
     private String description;
     private boolean saleState;
     private String phoneNumber;
@@ -34,7 +28,7 @@ public class Product extends Base {
         else
             truOrFalse = "❌";
 
-        return "\t\t Product ID :   " + getUserId() + "\n"+
+        return "\t\t Product ID :   " + getId() + "\n"+
                 "  Nomi\uD83D\uDCC4  :  " + name + '\n' +
                 "  Tavsif :  " + description +"\n"+
                 "  Narxi\uD83D\uDCB5 :   " + price +" so`m"+"\n"+

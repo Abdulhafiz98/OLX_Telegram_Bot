@@ -2,7 +2,7 @@
   {
     "categoryId": 0,
     "price": 0.0,
-    "userId": 0,
+    "userId": "0",
     "description": "thrthyhr",
     "saleState": false,
     "id": 19
@@ -10,7 +10,7 @@
   {
     "categoryId": 0,
     "price": 0.0,
-    "userId": 0,
+    "userId": "0",
     "description": "thrthyhr",
     "saleState": false,
     "id": 20
@@ -18,16 +18,16 @@
   {
     "categoryId": 0,
     "price": 0.0,
-    "userId": 0,
+    "userId": "0",
     "description": "thrthyhr",
-    "saleState": false,
+    "saleState": true,
     "id": 22
   },
   {
     "name": "reer",
     "categoryId": 5,
     "price": 2.3,
-    "userId": 2,
+    "userId": "2",
     "description": "efer",
     "saleState": true,
     "phoneNumber": "ewsf",
@@ -38,11 +38,66 @@
     "name": "reer",
     "categoryId": 5,
     "price": 2.3,
-    "userId": 2,
+    "userId": "2",
     "description": "efer",
     "saleState": true,
     "phoneNumber": "ewsf",
     "date": "trghrt",
     "id": 26
+  },
+  {
+    "name": "Samsung s29",
+    "categoryId": 35,
+    "price": 9500000.0,
+    "userId": "1181112349",
+    "description": "wwws",
+    "saleState": true,
+    "phoneNumber": "++9999",
+    "date": "wefreg",
+    "id": 49
+  },
+  {
+    "name": "Samsung s29",
+    "categoryId": 2,
+    "price": 54615.0,
+    "userId": "1181112349",
+    "description": "wwws",
+    "saleState": true,
+    "phoneNumber": "65846565",
+    "date": "20001",
+    "id": 50
+  },
+  {
+    "name": "Samsung s29",
+    "categoryId": 2,
+    "price": 54615.0,
+    "userId": "1181112349",
+    "description": "wwws",
+    "saleState": true,
+    "phoneNumber": "65846565",
+    "date": "20001",
+    "id": 51
+  },
+  {
+    "name": "Samsung s29",
+    "categoryId": 2,
+    "price": 54615.0,
+    "userId": "1181112349",
+    "description": "wwws",
+    "saleState": true,
+    "phoneNumber": "65846565",
+    "date": "20001",
+    "id": 52
+  },
+  {
+    "name": "Samsung s29",
+    "categoryId": 2,
+    "price": 54615.0,
+    "userId": "1181112349",
+    "description": "wwws",
+    "saleState": true,
+    "phoneNumber": "65846565",
+    "date": "20001",
+    "id": 53
   }
 ]

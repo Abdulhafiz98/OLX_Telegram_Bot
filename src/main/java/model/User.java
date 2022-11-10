@@ -19,11 +19,11 @@ public class User extends Base {
 
     @Override
     public String toString() {
-        return " Foydalanuvchi Malumotlari \uD83D\uDCD1 "+ "\n" +
+        return "   Foydalanuvchi Malumotlari \uD83D\uDCD1 "+ "\n" +
                 " Ism :  " + firstName + '\n' +
                 " Familiya :  " + lastName + '\n' +
                 " Telefon raqam :  " + phoneNumber + '\n' +
                 " Username :  " + username + '\n' +
-                " Chat ID  :  " + chatId + '\n';
+                " ID  :  " + chatId + '\n';
     }
 }

@@ -13,19 +13,23 @@ public interface Constanta {
     String FAVORITES = "FAVORITES❤";
     String ADMIN = "/admin";
     String ADMIN_ID = "1181112349";
-
-
+    String[] parentCategory = {"BOLALAR DUNYOSI\uD83D\uDC76", "KOCHMAS MULK\uD83C\uDFE0",
+            "TRANSPORT\uD83D\uDE99", "ISH\uD83D\uDCBC", "UY JIHOZLARI\uD83E\uDE91", "ELEKTRONIKA\uD83D\uDCF1"};
     String BOLALAR_DUNYOSI = "BOLALAR DUNYOSI\uD83D\uDC76";
     String KOCHMAS_MULK = "KOCHMAS MULK\uD83C\uDFE0";
     String TRANSPORT = "TRANSPORT\uD83D\uDE99";
     String ISH = "ISH\uD83D\uDCBC";
     String UY_JIHOZLARI = "UY JIHOZLARI\uD83E\uDE91";
     String ELEKTRONIKA = "ELEKTRONIKA\uD83D\uDCF1";
+    String MENING_ELONLARIM = "MENING ELONLARIM\uD83D\uDCEE";
     String BACK = "BACK";
+    String back = "/back";
     String ALL_CATEGORIES = "ALL CATEGORIES";
     String ALL_USERS = "ALL USERS";
     String ADD_CATEGORY = "ADD CATEGORY";
     String STATISTICS = "STATISTICS";
+    String ELON_BERISH = "ELON BERISH\uD83D\uDDDE";
+    String MEN_HAQIMDA = "MEN HAQIMDA\uD83D\uDCC4";
 
 
     String BOLALAR_KIYIMI = "BOLALAR KIYIMI";
