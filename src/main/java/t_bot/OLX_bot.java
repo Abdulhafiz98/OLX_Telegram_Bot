@@ -11,6 +11,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -23,13 +25,11 @@ import service.ProductService;
 import service.UserService;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
 public class OLX_bot extends TelegramLongPollingBot implements Constanta {
+    static List<Integer> cnt = new ArrayList<>();
     static DataBase dataBase = new BaseMethod();
     static UserService userService = new UserService();
     static ProductService productService = new ProductService();
@@ -39,6 +39,8 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
     public static void main(String[] args) throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(new OLX_bot());
+        cnt.add(0,0);
+        cnt.add(1,0);
     }
 
     @Override
@@ -53,20 +55,18 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
 
     @Override
     public void onUpdateReceived(Update update) {
-        Long userId = update.getMessage().getFrom().getId();
-        System.out.println(userId);
-        if (update.hasMessage() && update.getMessage().hasPhoto()){
+        if (update.hasCallbackQuery()) {
+            handleQuery(update.getCallbackQuery());
+        }
+       else if (update.hasMessage() && update.getMessage().hasPhoto()){
             handlePhotos(update);
         }
-
-       else if (update.getMessage().hasText()) {
+        else if (update.getMessage().hasText()) {
             try {
                 handleMessage(update.getMessage());
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } else if (update.hasCallbackQuery()) {
-            handleQuery(update.getCallbackQuery());
         } else if (update.getMessage().hasContact()){
             handleContact(update);
         }
@@ -75,10 +75,8 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
     private void handlePhotos(Update update) {
         String chatId = String.valueOf(update.getMessage().getChatId());
         List<PhotoSize> photos = update.getMessage().getPhoto();
-        String f_id = photos.stream()
-                .sorted(Comparator.comparing(PhotoSize::getFileSize).reversed())
-                .findFirst()
-                .orElse(null).getFileId();
+        String f_id = Objects.requireNonNull(photos.stream().max(Comparator.comparing(PhotoSize::getFileSize))
+                .orElse(null)).getFileId();
         SendPhoto msg = new SendPhoto();
         InputFile file = new InputFile(f_id);
         msg.setPhoto(file);
@@ -97,7 +95,10 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
     }
 
     private void handleQuery(CallbackQuery callbackQuery) {
-
+        String query = callbackQuery.getData();
+        if (query.equals("back") || query.equals("next") || query.equals("delete")){
+            allCategoriesForAdmin(query,ADMIN_ID, String.valueOf(callbackQuery.getMessage().getMessageId()));
+        }
     }
 
     private void handleMessage(Message message) throws FileNotFoundException {
@@ -112,7 +113,7 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
             case ELON_BERISH -> addProductToBase(message, chatId);
             case MENING_ELONLARIM -> myProducts(message, chatId);
             case MEN_HAQIMDA -> myInfo(chatId);
-            case ALL_CATEGORIES -> allCategoriesForAdmin(message, chatId);
+            case ALL_CATEGORIES -> allCategoriesForAdmin("0", chatId,"");
             case BOLALAR_DUNYOSI -> showAllCharCatFromOneParentCat(chatId, BOLALAR_DUNYOSI,1);
             case KOCHMAS_MULK -> showAllCharCatFromOneParentCat(chatId, KOCHMAS_MULK,2);
             case TRANSPORT -> showAllCharCatFromOneParentCat(chatId, TRANSPORT,3);
@@ -166,8 +167,227 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
 
     }
 
-    //hasCallBackData
-    private void allCategoriesForAdmin(Message message, String chatId) {
+
+
+   /** NO CALLBACKQUERY
+   * */
+    private void allCategoriesForAdmin(String s, String chatId, String messageID) {
+
+        try {
+            allCategories = dataBase.getAllCategoriesList();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        int listSize = allCategories.size();
+        int size1  = (listSize / 3);
+
+
+
+        List<List<InlineKeyboardButton>> inlineList = new ArrayList<>();
+        if (s.equals("0")) {
+                for (int i = 0; i < size1; i++) {
+                    inlineList.add(List.of(
+                            InlineKeyboardButton.builder().text("Id : " + allCategories.get(i).getId() + " | " +
+                                    allCategories.get(i).getName()
+                                    + " |  parent Id : " + allCategories.get(i).getParentId()).callbackData("sre").build()
+                    ));
+                }
+                 List<InlineKeyboardButton> buttons = new ArrayList<>();
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                InlineKeyboardButton button1 = new InlineKeyboardButton();
+                InlineKeyboardButton button2 = new InlineKeyboardButton();
+                button.setText("    ⬅️ ");
+                button.setCallbackData("back");
+                button1.setText("   ❌   ");
+                button1.setCallbackData("delete");
+                button2.setText("     ➡ ️");
+                button2.setCallbackData("next");
+                buttons.add(button);
+                buttons.add(button1);
+                buttons.add(button2);
+                inlineList.add(buttons);
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setReplyMarkup(new InlineKeyboardMarkup(inlineList));
+            sendMessage.setText("Choose ..");
+            try {
+                execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        else if (s.equals("delete")) {
+            DeleteMessage deleteMessage = new DeleteMessage();
+            deleteMessage.setChatId(chatId);
+            deleteMessage.setMessageId(Integer.valueOf(messageID));
+
+            try {
+                execute(deleteMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+            cnt.set(0,0);
+
+        }
+
+
+        else if (s.equals("next")) {
+            if (cnt.get(0) == 0) {
+                for (int i = listSize/3; i < (listSize/3)*2; i++) {
+
+                    inlineList.add(List.of(
+                            InlineKeyboardButton.builder().text("Id : " + allCategories.get(i).getId() + " | " +
+                                    allCategories.get(i).getName()
+                                    + " |  parent Id : " + allCategories.get(i).getParentId()).callbackData("sre").build()
+                    ));
+                }
+                List<InlineKeyboardButton> buttons = new ArrayList<>();
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                InlineKeyboardButton button1 = new InlineKeyboardButton();
+                InlineKeyboardButton button2 = new InlineKeyboardButton();
+                button.setText("    ⬅️ ");
+                button.setCallbackData("back");
+                button1.setText("   ❌   ");
+                button1.setCallbackData("delete");
+                button2.setText("     ➡ ️");
+                button2.setCallbackData("next");
+                buttons.add(button);
+                buttons.add(button1);
+                buttons.add(button2);
+                inlineList.add(buttons);
+                EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+                editMessageReplyMarkup.setChatId(chatId);
+                editMessageReplyMarkup.setReplyMarkup(new InlineKeyboardMarkup(inlineList));
+                editMessageReplyMarkup.setMessageId(Integer.valueOf(messageID));
+                cnt.set(0,1);
+                try {
+                    execute(editMessageReplyMarkup);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+
+            else if (cnt.get(0) == 1) {
+                for (int i = listSize/2; i < listSize; i++) {
+                    inlineList.add(List.of(
+                            InlineKeyboardButton.builder().text("Id : " + allCategories.get(i).getId() + " | " +
+                                    allCategories.get(i).getName()
+                                    + " |  parent Id : " + allCategories.get(i).getParentId()).callbackData("sre").build()
+                    ));
+                }
+                List<InlineKeyboardButton> buttons = new ArrayList<>();
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                InlineKeyboardButton button1 = new InlineKeyboardButton();
+                InlineKeyboardButton button2 = new InlineKeyboardButton();
+                button.setText("    ⬅️ ");
+                button.setCallbackData("back");
+                button1.setText("   ❌   ");
+                button1.setCallbackData("delete");
+                button2.setText("     ➡ ️");
+                button2.setCallbackData("next");
+                buttons.add(button);
+                buttons.add(button1);
+                buttons.add(button2);
+                inlineList.add(buttons);
+
+
+                EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+                editMessageReplyMarkup.setChatId(chatId);
+                editMessageReplyMarkup.setReplyMarkup(new InlineKeyboardMarkup(inlineList));
+                editMessageReplyMarkup.setMessageId(Integer.valueOf(messageID));
+                cnt.set(0,2);
+                try {
+                    execute(editMessageReplyMarkup);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        }
+
+
+        else if (s.equals("back")) {
+            if (cnt.get(0) == 1) {
+                for (int i = 0; i < (listSize/3); i++) {
+
+                    inlineList.add(List.of(
+                            InlineKeyboardButton.builder().text("Id : " + allCategories.get(i).getId() + " | " +
+                                    allCategories.get(i).getName()
+                                    + " |  parent Id : " + allCategories.get(i).getParentId()).callbackData("sre").build()
+                    ));
+                }
+                cnt.set(0,0);
+                List<InlineKeyboardButton> buttons = new ArrayList<>();
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                InlineKeyboardButton button1 = new InlineKeyboardButton();
+                InlineKeyboardButton button2 = new InlineKeyboardButton();
+                button.setText("    ⬅️ ");
+                button.setCallbackData("back");
+                button1.setText("   ❌   ");
+                button1.setCallbackData("delete");
+                button2.setText("     ➡ ️");
+                button2.setCallbackData("next");
+                buttons.add(button);
+                buttons.add(button1);
+                buttons.add(button2);
+                inlineList.add(buttons);
+                EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+                editMessageReplyMarkup.setChatId(chatId);
+                editMessageReplyMarkup.setReplyMarkup(new InlineKeyboardMarkup(inlineList));
+                editMessageReplyMarkup.setMessageId(Integer.valueOf(messageID));
+                try {
+                    execute(editMessageReplyMarkup);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+
+            else if (cnt.get(0) == 2) {
+                for (int i = listSize/3; i < (listSize/3)*2; i++) {
+                    inlineList.add(List.of(
+                            InlineKeyboardButton.builder().text("Id : " + allCategories.get(i).getId() + " | " +
+                                    allCategories.get(i).getName()
+                                    + " |  parent Id : " + allCategories.get(i).getParentId()).callbackData("sre").build()
+                    ));
+                }
+                List<InlineKeyboardButton> buttons = new ArrayList<>();
+                InlineKeyboardButton button = new InlineKeyboardButton();
+                InlineKeyboardButton button1 = new InlineKeyboardButton();
+                InlineKeyboardButton button2 = new InlineKeyboardButton();
+                button.setText("    ⬅️ ");
+                button.setCallbackData("back");
+                button1.setText("   ❌   ");
+                button1.setCallbackData("delete");
+                button2.setText("     ➡ ️");
+                button2.setCallbackData("next");
+                buttons.add(button);
+                buttons.add(button1);
+                buttons.add(button2);
+                inlineList.add(buttons);
+
+
+                EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+                editMessageReplyMarkup.setChatId(chatId);
+                editMessageReplyMarkup.setReplyMarkup(new InlineKeyboardMarkup(inlineList));
+                editMessageReplyMarkup.setMessageId(Integer.valueOf(messageID));
+                cnt.set(0,1);
+                try {
+                    execute(editMessageReplyMarkup);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        }
+
+
+
+
 
 
     }
@@ -226,8 +446,8 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
         }
     }
     private void adminPanel(Message message) {
-     boolean flag = checkAdmin();
-     if (flag) {
+        String  chatId = String.valueOf(message.getChatId());
+        //if (chatId.equals(ADMIN_ID)) {
          ReplyKeyboardMarkup reply = new ReplyKeyboardMarkup();
          reply.setResizeKeyboard(true);
          reply.setSelective(true);
@@ -243,14 +463,14 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
          } catch (TelegramApiException e) {
              throw new RuntimeException(e);
          }
-     }
-     else {
-         try {
-             execute(SendMessage.builder().text("You are not Admin ").chatId(message.getChatId()).build());
-         } catch (TelegramApiException e) {
-             throw new RuntimeException(e);
-         }
-     }
+//     }
+//     else {
+//         try {
+//             execute(SendMessage.builder().text("You are not Admin ").chatId(message.getChatId()).build());
+//         } catch (TelegramApiException e) {
+//             throw new RuntimeException(e);
+//         }
+//     }
     }
 
     private void profileForUser(Message message, String chatId) {
@@ -388,22 +608,7 @@ public class OLX_bot extends TelegramLongPollingBot implements Constanta {
         return null;
     }
 
-    private boolean checkAdmin(){
-        try {
-            allUsersList = dataBase.getAllUsersList();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        boolean flag = false;
-        for (User user : allUsersList) {
-            if (user.getChatId().equals(ADMIN_ID)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
 
-    }
 
 
 }

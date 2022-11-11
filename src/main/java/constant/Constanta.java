@@ -4,6 +4,8 @@ package constant;
 import java.util.stream.Stream;
 
 public interface Constanta {
+    String COR_Token = "1620947340:AAHvKVRmxOmXbZyeOtJdFAidWeAy6Nn_b38";
+    String user_COR = "https://t.me/Corona_info_uzb_bot";
     String BOT_TOKEN = "5628914728:AAFHuG3Sjghxob-d-5px0AmGivPtCEV80ao";
     String BOT_USERNAME = "https://t.me/springDemotelegramBot";
     String START = "/start";

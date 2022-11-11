@@ -217,16 +217,21 @@
   {
     "parentId": 1,
     "name": " BOLALAR OZIQ OVQATI ",
-    "id": 46
+    "id": 44
   },
   {
     "parentId": 1,
     "name": " O`YINCHOQLAR ",
-    "id": 47
+    "id": 45
   },
   {
     "parentId": 0,
     "name": "MAKTAB TOVARLARI ",
-    "id": 48
+    "id": 46
+  },
+  {
+    "parentId": 0,
+    "name": "MAKTAB TOVARLARI ",
+    "id": 47
   }
 ]
