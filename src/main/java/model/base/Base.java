@@ -1,5 +1,6 @@
 package model.base;
 
+import dataBase.DataBase;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -13,11 +14,14 @@ public abstract class Base {
     public Base(){
         idGenerator++;
         this.id = idGenerator;
+        DataBase.saveIdToDataBase(this.id);
     }
 
     public void setCallBackData(String callBackData){
         this.callBackData = callBackData;
     }
 
-
+    public static void setIdGenerator(int idGenerator) {
+        Base.idGenerator = idGenerator;
+    }
 }
