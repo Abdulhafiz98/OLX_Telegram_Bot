@@ -11,6 +11,7 @@ import exceptions.UserNotFoundException;
 import model.Category;
 import model.Product;
 import model.Tg_User;
+import model.base.Base;
 import org.glassfish.grizzly.threadpool.FixedThreadPool;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -27,6 +28,7 @@ import service.CategoryService;
 import service.ProductService;
 import service.UserService;
 
+import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +38,8 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class Tg_Bot_DTO {
 
@@ -347,17 +351,15 @@ public abstract class Tg_Bot_DTO {
                 }
             }
         }
+
         bot.myExecute(null,null,"❌ Sorry, I could not find any user with this user name, Please try again.",chatId,null);
     }
 
     public static void sendMessageToAllUser(String textMessage){
-        for (Tg_User user : DataBase.LIST_OF_USERS.stream().parallel().toList()) {
-            if(user!=null){
-                if(!DataBase.ALL_ADMIN_CHAT_ID.contains(user.getChatId())&&!AdminConstants.adminChatId.equals(user.getChatId())){
-                    bot.myExecute(null,null,textMessage.substring(6),user.getChatId(),null);
-                }
-            }
-        }
+        DataBase.LIST_OF_USERS.stream()
+                .parallel()
+                .filter(user -> !DataBase.ALL_ADMIN_CHAT_ID.contains(user.getChatId())&&!AdminConstants.adminChatId.equals(user.getChatId()))
+                .forEach(user -> bot.myExecute(null,null,textMessage.substring(6),user.getChatId(),null));
     }
     public static boolean purchaseMessageForUsers(Product product,Long chatId){
         if(product.isSaleState()){
@@ -372,14 +374,13 @@ public abstract class Tg_Bot_DTO {
 
     public static void notifyAdminAboutSoldProduct(Product product,User user){
         String text = "Product on the above has just been bought by "+user.getFirstName()+"\n"+Tg_Bot_DTO.getCurrentDateAndTime();
-        for (Tg_User tg_user : DataBase.LIST_OF_USERS.stream().parallel().toList()) {
-            if(tg_user!=null){
-                if(DataBase.ALL_ADMIN_CHAT_ID.contains(tg_user.getChatId())||tg_user.getChatId().equals(AdminConstants.adminChatId)){
+        DataBase.LIST_OF_USERS.stream()
+                .parallel()
+                .filter(tg_user -> DataBase.ALL_ADMIN_CHAT_ID.contains(tg_user.getChatId())||tg_user.getChatId().equals(AdminConstants.adminChatId))
+                .forEach(tg_user -> {
                     bot.myExecuteForPhoto(product.getPhoto(),null,product.toString(), tg_user.getChatId());
                     product.setSaleState(true);
                     bot.myExecute(null,null,text, tg_user.getChatId(), "Markdown");
-                }
-            }
-        }
+                });
     }
 }

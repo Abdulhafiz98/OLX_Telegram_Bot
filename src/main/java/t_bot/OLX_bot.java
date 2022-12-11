@@ -6,6 +6,7 @@ import dataBase.DataBase;
 import exceptions.NoExecutionException;
 import model.Product;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageCaption;
@@ -111,7 +112,8 @@ public class OLX_bot extends TelegramLongPollingBot implements Olx_botBase{
 
                 if (text.equals("/start")) {
                     Tg_Bot_DTO.main(message);
-                } else if (text.equals(AdminConstants.addCategoryButton) || text.equals(UserConstants.categories)) {
+                }
+                else if (text.equals(AdminConstants.addCategoryButton) || text.equals(UserConstants.categories)) {
                     myExecute(null, Tg_Bot_DTO.adminMenuInlineMarkup(DataBase.LIST_OF_CATEGORY, "0", chatId), "Main categories", chatId, null);
                 } else if (text.contains("-:-") && cntCategoryAdd == 1) {
                     Tg_Bot_DTO.backButtonAfterCreatingCategory(text, "Category has been created successfully.", chatId);
